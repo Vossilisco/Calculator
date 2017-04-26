@@ -1,7 +1,7 @@
 package myPackage;
 
-import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * @author Rafael
@@ -10,12 +10,7 @@ import java.util.Scanner;
  */
 public class Calculator {
 
-	static char[] operators = {'+', '-', '*', '/', '^'};
-	static ArrayList<String> myInput = new ArrayList<String>(10);
-	static ArrayList<String> myOperands = new ArrayList<String>(10);
-	static ArrayList<String> myOperators = new ArrayList<String>(10);
-	static Scanner reader = new Scanner(System.in);
-	static String input = "";
+	static String operators = "+-*/^";
 	
 	/**
 	 * Exactly the as System.out.println but shorter
@@ -50,10 +45,8 @@ public class Calculator {
 	 * 
 	 **/
 	public static boolean isOperator(String o){
-		for (char iterator : operators) {
-			if(String.valueOf(iterator).equals(o)) return true;
-		}
-		return false;
+		
+		return operators.contains(o);
 	}
 		
 	/**
@@ -61,71 +54,102 @@ public class Calculator {
 	 * 
 	 **/
 	public static boolean isNumeric(String strin)  {  
-	  try {  
-	    double d = Double.parseDouble(strin);  
-	  }  
-	  catch(NumberFormatException nfe) {  
-	    return false;  
-	  }  
-	  return true;  
+		return Character.isDigit(strin.charAt(0)) || strin.charAt(0)=='.'; 
+	}
+	/**
+	 * Return true if the input char is a number.
+	 * 
+	 **/
+	public static boolean isNumeric(char strin)  {  
+		return Character.isDigit(strin) || strin=='.'; 
 	}
 	
 	/**
-	 * Print all the input in Infix Form
-	 * */
-	public static void showInfixForm(){
-		for (int i = 0; i < myOperands.size(); i++) {
-			print(myOperands.get(i));
-			if(i<= myOperators.size()-1) {
-				print(" ");
-				print(myOperators.get(i));
-				print(" ");
-			}
+	 * Return the priority of the given operator.
+	 * 
+	 **/
+	public static int getPriority(char op) {
+		switch (op) {
+		case '+':
+		case '-':
+			return 1;
+
+		case '/':
+		case '*':
+			return 2;
+
+		case '^':
+			return 3;
+
+		default:
+			//It will never reach this
+			return -1;
 		}
 	}
 
 	/**
-	 * Print all the input in Postfix Form
-	 * */
-	public static void showPostfixForm(){
-		print(myOperands.get(0));
-		print(" ");
-		print(myOperands.get(1));	
-		for (int i = 0; i < myOperators.size(); i++) {
-			print(" ");
-			print(myOperators.get(i));
-			print(" ");
-			if(i+2<= myOperands.size()-1) {
-				print(myOperands.get(i+2));
+	 * Convert a String math expression in infix to Postfix form.
+	 * @param String with the infix expression
+	 * @return String with the postfix expression
+	 **/
+	public static String infixToPostfix(String infix) {
+		Stack<Character> stack = new Stack<>();
+		StringBuilder postFix = new StringBuilder();
+
+		for (int i = 0; i < infix.length(); i++) {
+			// If char is an operand or one digit of a double number then add to output
+			if (isNumeric(infix.charAt(i)) ) {			
+				postFix.append(infix.charAt(i));
+				
+			} else {
+				char operator = infix.charAt(i);
+				while (!stack.isEmpty() && getPriority(operator) <= getPriority(stack.peek())) {
+					postFix.append(stack.pop());
+				}
+				stack.push(operator);
 			}
 		}
+
+		while (!stack.isEmpty()) {
+			postFix.append(stack.pop());
+		}
+
+		return postFix.toString();
 	}
-	
-	public static void main(String[] args) {
-		welcome();
+
+	/**
+	 * Ask the user for the math expresion on infix form.
+	 * @return String that contains a infix expression
+	 * */
+	public static String askForExpression(){
+		StringBuilder sb = new StringBuilder();
+		Scanner reader = new Scanner(System.in);
+		String input = "";
 		
-		while(!input.equals(" ")){
-			
+		while(!input.equals("e")){
 			input = reader.nextLine();
-			if(isNumeric(input) && myOperands.size()+1==myOperators.size()+1 ||
-					isOperator(input)&& myOperands.size()>=myOperators.size()+1) {
-				
-				println("Se cumple\n");
-				if(isNumeric(input)) myOperands.add(input); 
-				else myOperators.add(input);
-				
-			// If the input data is not numeric, no operator and no space, so is an invalid input.	
-			}else if(!input.equals(" ")){
-				println("Wrong input data, expected: 'operand' 'operator' 'operand' .\n");
+			
+			if(input.length()==1 && isOperator(input) || isNumeric(input)){
+				sb.append(input);
+			}else if(!input.equals("e")){
+				print("ERROR: input should enter digit by digit. Introduce 'e' when finish.");
 				System.exit(0);
 			}
 		}
+		reader.close();
+		return sb.toString();
+	}
+	
+	
+	public static void main(String[] args){
+		welcome();
 		
-		println("Infix form:");
-		showInfixForm();
-			
-		println("\nPostfix form:");
-		showPostfixForm();	
+		String infix = askForExpression();
+		println(infix);
+		String postfix = infixToPostfix(infix);
+		println(postfix);
+		
+	
 	}
 
 }
