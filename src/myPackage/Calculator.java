@@ -4,41 +4,43 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
-/**
- * @author Rafael
- * @category Assignment #1 Calculator for arithmetic expressions
- * 
- */
+
 public class Calculator {
 
-	static String operators = "+-*/^";
-	static ArrayList<Character> operatorList = new ArrayList<Character>();
-	static ArrayList<Double> operandList = new ArrayList<Double>();
+	private final String operators = "+-*/^";
+	private ArrayList<Character> operatorList;
+	private ArrayList<Double> operandList;
+	
+	public Calculator(){
+		this.operatorList = new ArrayList<Character>();
+		this.operandList = new ArrayList<Double>();
+		welcome();
+	}
 	
 	/**
 	 * Exactly the as System.out.println but shorter
 	 * */
-	public static void println(String s){
+	private void println(String s){
 		System.out.println(s);
 	}
 		
 	/**
 	 * Exactly the as System.out.print but shorter
 	 * */
-	public static void print(String s){
+	private void print(String s){
 		System.out.print(s);
 	}
 	
 	/**
 	 * Just a hello message from calculator.
 	 */
-	public static void welcome(){
+	private void welcome(){
 		println("------------");
 		println("-CALCULATOR-");
 		println("------------");
 		println("\n");
 		println("Please, enter one by one each operand pressing ENTER.");
-		println("Calculator will finish when the input is SPACE.");
+		println("Calculator will finish when the input is 'e'.");
 		println("Ready to start:");
 		println("\n");
 	}
@@ -47,7 +49,7 @@ public class Calculator {
 	 * Return true if the input String is a valid operator.
 	 * 
 	 **/
-	public static boolean isOperator(String o){
+	private boolean isOperator(String o){
 		
 		return operators.contains(o);
 	}
@@ -56,7 +58,7 @@ public class Calculator {
 	 * Return true if the input String is a number.
 	 * 
 	 **/
-	public static boolean isNumeric(String strin)  {  
+	private boolean isNumeric(String strin)  {  
 		  try  {  
 			  double d = Double.parseDouble(strin); 
 			  
@@ -70,16 +72,16 @@ public class Calculator {
 	 * Return true if the input char is a number.
 	 * 
 	 **/
-	public static boolean isNumeric(char strin)  {  
+	private boolean isNumeric(char strin)  {  
 		return Character.isDigit(strin) || strin=='.'; 
 	}
 	
 	/**
 	 * Return the priority of the given operator.
-	 * @param op Char with the validd operator.
+	 * @param op Char with the valid operator.
 	 * @return from 1 to 3, the priority of the given operator.
 	 **/
-	public static int getPriority(char op) {
+	private int getPriority(char op) {
 		switch (op) {
 		case '+':
 		case '-':
@@ -99,11 +101,39 @@ public class Calculator {
 	}
 
 	/**
+	 * It calculates the mathematical operation with the input parameters
+	 * @param op Char that means a valid operation
+	 * @param value1 First operand
+	 * @param value2 Second operand
+	 * */
+	private double calculate(char op, double value1, double value2){
+		switch (op) {
+		case '+':
+			return value1+value2;
+
+		case '-':
+			return value2-value1;
+			
+		case '*':
+			return value2*value1;
+			
+		case '/':
+			return value2/value1;
+		
+		case '^':
+			return Math.pow(value2,value1);
+			
+		default:
+			return 0;
+		}
+	}
+	
+	/**
 	 * Convert a String math expression in infix to Postfix form.
 	 * @param String with the infix expression
 	 * @return String with the postfix expression
 	 **/
-	public static String infixToPostfix(String infix) {
+	public String infixToPostfix(String infix) {
 		Stack<Character> stack = new Stack<>();
 		StringBuilder postFix = new StringBuilder();
 		StringBuilder temp = new StringBuilder();
@@ -143,7 +173,7 @@ public class Calculator {
 	 * Ask the user for the math expresion on infix form.
 	 * @return String that contains a infix expression
 	 * */
-	public static String askForExpression(){
+	public String askForExpression(){
 		StringBuilder sb = new StringBuilder();
 		Scanner reader = new Scanner(System.in);
 		String input = "";
@@ -168,39 +198,13 @@ public class Calculator {
 		return sb.toString();
 	}
 	
-	/**
-	 * It calculates the mathematical operation with the input parameters
-	 * @param op Char that means a valid operation
-	 * @param value1 First operand
-	 * @param value2 Second operand
-	 * */
-	public static double calculate(char op, double value1, double value2){
-		switch (op) {
-		case '+':
-			return value1+value2;
 
-		case '-':
-			return value2-value1;
-			
-		case '*':
-			return value2*value1;
-			
-		case '/':
-			return value2/value1;
-		
-		case '^':
-			return Math.pow(value2,value1);
-			
-		default:
-			return 0;
-		}
-	}
 	/**
 	 * It calculates the result of a PostFix given expression.
 	 * @param postfix String with the mathematical expression in PostFix form.
 	 * @return Double data with the solution.
 	 * */
-	public static double evaluatePostfix(String postfix){
+	public double evaluatePostfix(String postfix){
 		Stack<Double> pila = new Stack<Double>();
 		StringBuilder temp = new StringBuilder();
 		
@@ -227,15 +231,4 @@ public class Calculator {
 		return pila.pop();
 	}
 
-	public static void main(String[] args){
-		welcome();
-		
-		String infix = askForExpression();
-		println(infix);
-		String postfix = infixToPostfix(infix);
-		println(postfix);
-		Double end = evaluatePostfix(postfix);
-		println(end.toString());
-	
-	}
 }
