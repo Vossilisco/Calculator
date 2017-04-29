@@ -25,14 +25,14 @@ Type one number press Enter, type one operator press Enter and so on. Type `e` w
 
 If you want to calculate for example:  `10 + 2 * 4.5`
 
-Type 10  press Enter,
-Type +   press Enter,
-Type 2   press Enter,
-Type *   press Enter,
-Type 4.5 press Enter,
-Type e   press Enter.
+##### Type 10  press Enter,
+##### Type +   press Enter,
+##### Type 2   press Enter,
+##### Type *   press Enter,
+##### Type 4.5 press Enter,
+##### Type e   press Enter.
 
 
-> Infix form: 10 + 2 * 4.5
-> Postfix form: 10 2 4.5 * +
-> The solution is: 19.0
+> Infix form: 10 + 2 * 4.5 <br />
+> Postfix form: 10 2 4.5 * + <br />
+> The solution is: 19.0 <br />
