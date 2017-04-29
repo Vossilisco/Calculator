@@ -76,7 +76,8 @@ public class Calculator {
 	
 	/**
 	 * Return the priority of the given operator.
-	 * 
+	 * @param op Char with the validd operator.
+	 * @return from 1 to 3, the priority of the given operator.
 	 **/
 	public static int getPriority(char op) {
 		switch (op) {
@@ -166,7 +167,66 @@ public class Calculator {
 		reader.close();
 		return sb.toString();
 	}
+	
+	/**
+	 * It calculates the mathematical operation with the input parameters
+	 * @param op Char that means a valid operation
+	 * @param value1 First operand
+	 * @param value2 Second operand
+	 * */
+	public static double calculate(char op, double value1, double value2){
+		switch (op) {
+		case '+':
+			return value1+value2;
+
+		case '-':
+			return value2-value1;
 			
+		case '*':
+			return value2*value1;
+			
+		case '/':
+			return value2/value1;
+		
+		case '^':
+			return Math.pow(value2,value1);
+			
+		default:
+			return 0;
+		}
+	}
+	/**
+	 * It calculates the result of a PostFix given expression.
+	 * @param postfix String with the mathematical expression in PostFix form.
+	 * @return Double data with the solution.
+	 * */
+	public static double evaluatePostfix(String postfix){
+		Stack<Double> pila = new Stack<Double>();
+		StringBuilder temp = new StringBuilder();
+		
+		for (int i=0; i< postfix.length(); i++){
+			temp.delete(0, temp.length());
+			
+			while(postfix.charAt(i)!= ' '){
+				temp.append(postfix.charAt(i));
+				i++;
+			}
+			
+			//If is a number, we push it into the stack
+			if(isNumeric(temp.toString())){
+				pila.push(Double.valueOf(temp.toString()));
+		
+			//If is an operator, we operate with it
+			}else{
+				
+				pila.push(calculate(temp.charAt(0), pila.pop(), pila.pop()));
+				
+			}
+		}
+		
+		return pila.pop();
+	}
+
 	public static void main(String[] args){
 		welcome();
 		
@@ -174,7 +234,8 @@ public class Calculator {
 		println(infix);
 		String postfix = infixToPostfix(infix);
 		println(postfix);
-		
+		Double end = evaluatePostfix(postfix);
+		println(end.toString());
 	
 	}
 }
