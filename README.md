@@ -23,7 +23,7 @@ Compile and execute UsingCalculator.java.
 Type one number press Enter, type one operator press Enter and so on. Type `e` when finished and it will display the infix form, the postfix form and the solution.
 
 
-If you want to calculate for example:  `10 + 2 * 4.5`  
+If you want to calculate for example:  `10 + 2 * 4.5` , you should do this:
 
 ##### Type 10  press Enter,
 ##### Type +   press Enter,
@@ -32,6 +32,7 @@ If you want to calculate for example:  `10 + 2 * 4.5`
 ##### Type 4.5 press Enter,
 ##### Type e   press Enter.
 
+*The output will be:*  
 
 > Infix form: 10 + 2 * 4.5  
 > Postfix form: 10 2 4.5 * +  
