@@ -33,18 +33,15 @@ Type 4.5 press Enter,
 Type e   press Enter.
 
 
-> Infix form: 10 + 2 * 4.5
-> Postfix form: 10 2 4.5 * +
-<<<<<<< HEAD
-> The solution is: 19.0
-=======
-> The solution is: 19.0
+> Infix form: 10 + 2 * 4.5 
+> Postfix form: 10 2 4.5 * + 
+> The solution is: 19.0 
 
-It is also compatible with the use of multiple parenthesis, another example: `2 * ( 4.5 - 2.5 ) + 6`
+It is also compatible with the use of multiple parenthesis, another example: `2 * ( 4.5 - 2.5 ) + 6` 
 
-> Infix form: 2 * ( 4.5 - 2.5 ) + 6
-> Postfix form: 2 4.5 2.5 - * 6 +
-> The solution is: 10.0
+> Infix form: 2 * ( 4.5 - 2.5 ) + 6 
+> Postfix form: 2 4.5 2.5 - * 6 + 
+> The solution is: 10.0 
 
 
 And it is secure against wrong input, bad sintaxis etc....  It gives valuable info too.
@@ -58,4 +55,3 @@ A few *BAD* examples:
 
 `( 2 + 4.5) * 6 ) + 4`
 > ERROR -> Invalid use of parenthesis.
->>>>>>> origin/master
