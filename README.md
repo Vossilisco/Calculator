@@ -47,7 +47,7 @@ The solution is: 10.0
 ```
 
 And it is secure against wrong input, bad sintaxis etc....  It gives valuable info too.
-**A few __BAD__ examples: **
+**A few _BAD_ examples:**
 
 ` + 2 - 2 `        
 `ERROR -> Unknown input. Please type only numbers and valid operators: +-*/^()`
