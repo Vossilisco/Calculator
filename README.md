@@ -34,13 +34,17 @@ Type e   press Enter.
 
 
 > Infix form: 10 + 2 * 4.5 
+
 > Postfix form: 10 2 4.5 * + 
+
 > The solution is: 19.0 
 
 It is also compatible with the use of multiple parenthesis, another example: `2 * ( 4.5 - 2.5 ) + 6` 
 
 > Infix form: 2 * ( 4.5 - 2.5 ) + 6 
+
 > Postfix form: 2 4.5 2.5 - * 6 + 
+
 > The solution is: 10.0 
 
 
