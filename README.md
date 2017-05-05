@@ -38,7 +38,7 @@ Postfix form: 10 2 4.5 * +
 The solution is: 19.0 
 ```
 
-It is also compatible with the use of multiple parenthesis, another example: `2 * ( 4.5 - 2.5 ) + 6
+It is also compatible with the use of multiple parenthesis, another example: `2 * ( 4.5 - 2.5 ) + 6`
 
 ```
 Infix form: 2 * ( 4.5 - 2.5 ) + 6 
@@ -47,7 +47,7 @@ The solution is: 10.0
 ```
 
 And it is secure against wrong input, bad sintaxis etc....  It gives valuable info too.
-**A few _BAD_ examples:**
+**A few _wrong_ examples:**
 
 ` + 2 - 2 `        
 `ERROR -> Unknown input. Please type only numbers and valid operators: +-*/^()`
